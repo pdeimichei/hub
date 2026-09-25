@@ -91,10 +91,10 @@ WSGI_APPLICATION = "hub.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "hub.db_backend" if AZURE_POSTGRES_ENTRA else "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME", "hub"),
-        "USER": os.environ.get("DB_USER", "postgres"),
+        "NAME": os.environ.get("DB_NAME") or os.environ.get("AZURE_POSTGRESQL_NAME", "hub"),
+        "USER": os.environ.get("DB_USER") or os.environ.get("AZURE_POSTGRESQL_USER", "postgres"),
         "PASSWORD": os.environ.get("DB_PASSWORD", ""),
-        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "HOST": os.environ.get("DB_HOST") or os.environ.get("AZURE_POSTGRESQL_HOST", "localhost"),
         "PORT": os.environ.get("DB_PORT", "5432"),
         "CONN_MAX_AGE": int(os.environ.get("DB_CONN_MAX_AGE", "300")),
         "OPTIONS": {"sslmode": os.environ.get("DB_SSLMODE", "prefer")},
